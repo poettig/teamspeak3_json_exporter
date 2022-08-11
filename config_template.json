@@ -1,0 +1,13 @@
+{
+  "api": {
+    "server_hostname": "example.com",
+    "scheme": "http",
+    "webquery_port": 10080,
+    "webquery_token": "<token>",
+    "virtual_server_id": 1
+  },
+  "server": {
+    "listen_addresses": ["::1", "127.0.0.1"],
+    "listen_port": 33333
+  }
+}
