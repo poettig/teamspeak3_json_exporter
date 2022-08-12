@@ -1,4 +1,4 @@
-# TeamSpeak 3 State JSON Exporter
+# TeamSpeak 3 JSON Exporter
 Exports the current state of a TeamSpeak 3 Server as easily parsable, hierarchical JSON
 
 ## Where do I get the WebQuery API token from?
