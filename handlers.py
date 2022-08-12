@@ -92,6 +92,7 @@ class StateHandler(AbstractRequestHandler, ABC):
 
 				parent_channel["sub_channels"].append(channel)
 
+		self.set_header("Content-Type", "application/json")
 		self.write(json.dumps(hierarchy))
 
 
@@ -101,6 +102,7 @@ class KnownClientsHandler(AbstractRequestHandler, ABC):
 		if not known_clients:
 			return
 
+		self.set_header("Content-Type", "application/json")
 		self.write(json.dumps(known_clients))
 
 
@@ -110,6 +112,7 @@ class OnlineClientsHandler(AbstractRequestHandler, ABC):
 		if not online_clients:
 			return
 
+		self.set_header("Content-Type", "application/json")
 		self.write(json.dumps(online_clients))
 
 
@@ -119,6 +122,7 @@ class OnlineClientInfoHandler(AbstractRequestHandler, ABC):
 		if not online_client_info:
 			return
 
+		self.set_header("Content-Type", "application/json")
 		self.write(json.dumps(online_client_info))
 
 
@@ -128,4 +132,5 @@ class KnownClientInfoHandler(AbstractRequestHandler, ABC):
 		if not known_client_info:
 			return
 
+		self.set_header("Content-Type", "application/json")
 		self.write(json.dumps(known_client_info))
