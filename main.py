@@ -13,7 +13,6 @@ import handlers
 
 async def main(listen_addresses: typing.List[str], listen_port: int, api: ts3_api.TeamSpeak3ServerAPI):
 	app = tornado.web.Application([
-		(r"/ping", handlers.PingHandler),
 		(r"/state", handlers.StateHandler, {"api": api}),
 		(r"/clients/online", handlers.OnlineClientsHandler, {"api": api}),
 		(r"/clients/online/(\d+)", handlers.OnlineClientInfoHandler, {"api": api}),
