@@ -87,10 +87,10 @@ class StateHandler(AbstractRequestHandler, ABC):
 				# Add this channel to its parent channel
 				parent_channel = channels[parent_channel_id]
 
-				if "sub_channels" not in parent_channel:
-					parent_channel["sub_channels"] = []
+				if "channels" not in parent_channel:
+					parent_channel["channels"] = []
 
-				parent_channel["sub_channels"].append(channel)
+				parent_channel["channels"].append(channel)
 
 		self.set_header("Content-Type", "application/json")
 		self.write(json.dumps(hierarchy))
