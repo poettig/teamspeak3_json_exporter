@@ -2,7 +2,7 @@
 Exports the current state of a TeamSpeak 3 Server as easily parsable, hierarchical JSON
 
 ## Where do I get the WebQuery API token from?
-To get the token, you have to login to your TeamSpeak3 ServerQuery via the Raw (default port 10011) or ssh (default port 10022) method. This works easiest with netcat. Once you are connected, login and request a token with `scope=manage` like shown below. This scope basically has admin rights on the server, but is necessary to get the server name. Yes, the TeamSpeak3 security concept is this stupid. `lifetime=0` sets the key lifetime to unlimited. This any other positive integer `x` sets the API key lifetime to `x` days.
+To get the token, you have to login to your TeamSpeak3 ServerQuery via the Raw (default port 10011) or ssh (default port 10022) method. This works easiest with netcat. Once you are connected, login and request a token with `scope=manage` like shown below. This scope basically has admin rights on the server, but is necessary to get the server name. Yes, the TeamSpeak3 security concept is this stupid. `lifetime=0` sets the key lifetime to unlimited. Any other positive integer `x` sets the API key lifetime to `x` days.
 
 ```
 $> netcat localhost 10011
