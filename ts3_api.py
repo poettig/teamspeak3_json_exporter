@@ -93,12 +93,16 @@ class TeamSpeak3ServerAPI:
 		online_clients = self.do_request(f"/{self.virtual_server_id}/clientlist", query_params)
 
 		# Replace cid and clid by channel_id and online_client_id as it is more intuitive
+		# Also, replace client_database_id with known_client_id for consistency
 		for online_client in online_clients:
 			online_client["channel_id"] = online_client["cid"]
 			del online_client["cid"]
 
 			online_client["online_client_id"] = online_client["clid"]
 			del online_client["clid"]
+
+			online_client["known_client_id"] = online_client["client_database_id"]
+			del online_client["client_database_id"]
 
 		return online_clients
 
@@ -146,7 +150,7 @@ class TeamSpeak3ServerAPI:
 		return online_client
 
 	def get_known_client_info(self, known_client_id: str):
-		known_client_list = self.do_request(f"/{self.virtual_server_id}/clientdbinfo", {"cldbid": known_client_id})[0]
+		known_client_list = self.do_request(f"/{self.virtual_server_id}/clientdbinfo", {"cldbid": known_client_id})
 
 		if len(known_client_list) > 1:
 			raise TS3APIInternalError(f"Unexpectedly got more than one online client for id {known_client_id}")
