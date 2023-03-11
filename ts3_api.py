@@ -17,6 +17,10 @@ class TS3APIBadRequestError(Exception):
 	pass
 
 
+class TS3EmptyResultSetError(Exception):
+	pass
+
+
 class TeamSpeak3ServerAPI:
 	def __init__(self, host: str, scheme: str, port: int, virtual_server_id: int, token: str):
 		self.host = host
@@ -53,8 +57,13 @@ class TeamSpeak3ServerAPI:
 		if status_code != 0:
 			if status_code in [512]:
 				raise TS3APINotFoundError(f"{status_code} ({status.get('message', '')})")
+			elif status_code in [1281, 2563]:
+				raise TS3EmptyResultSetError()
 			else:
-				raise TS3APIBadRequestError(f"Request to TS3 WebQuery API failed: {status_code} ({status.get('message', '')})")
+				raise TS3APIBadRequestError(
+					f"Request to TS3 WebQuery API failed: {status_code} ({status.get('message', '')})",
+					status_code
+				)
 
 		body = data.get("body")
 		if body is None:
@@ -121,7 +130,12 @@ class TeamSpeak3ServerAPI:
 		known_clients = []
 		while num_clients_in_page == max_clients_per_page:
 			query_params = {"start": str(len(known_clients))}
-			clients_in_page = self.do_request(f"/{self.virtual_server_id}/clientdblist", query_params)
+
+			try:
+				clients_in_page = self.do_request(f"/{self.virtual_server_id}/clientdblist", query_params)
+			except TS3EmptyResultSetError as e:
+				break
+
 			known_clients.extend(clients_in_page)
 			num_clients_in_page = len(clients_in_page)
 
